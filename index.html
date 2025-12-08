@@ -25,31 +25,196 @@
         crossorigin="anonymous"></script>
     </head>
 
-<body>
-    <h1>Siddhant Mujalgekar - Official Website</h1>
-    <p>Hello! This is my simple personal website made using only HTML.</p>
-    <p>Hello! I am <strong>Siddhant Mujalgekar</strong>, a tech enthusiast, developer, and problem solver. This is my official personal website.</p>
+<body style="margin:0; font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background:#050505;">
 
-    <h2>About Me</h2>
-    <p>I am Siddhant. I love technology, startups, and knowledge sharing.</p>
+<style>
 
-    <h2>Latest Blog Posts</h2>
-    <ul>
-        <li><a href="#post1">How to stay motivated</a></li>
-        <li><a href="#post2">My Journey</a></li>
-        <li><a href="#post3">Tech advice for students</a></li>
-    </ul>
+/* GLOBAL */
+* { scroll-behavior: smooth; }
 
-    <h3 id="post1">How to stay motivated</h3>
-    <p>Your content goes here...</p>
+.fade-up { opacity: 0; animation: fadeUp 1.1s ease forwards; }
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(40px); }
+  to   { opacity:1; transform: translateY(0); }
+}
 
-    <h3 id="post2">My Journey</h3>
-    <p>Your content goes here...</p>
+/* MASTER CARD */
+.card {
+  width: 92%;
+  max-width: 920px;
+  margin: 34px auto;
+  padding: 32px;
+  border-radius: 26px;
+  background: rgba(18,18,18,0.75);
+  backdrop-filter: blur(20px);
 
-    <h3 id="post3">Tech advice for students</h3>
-    <p>Your content goes here...</p>
+  /* Premium Thick Gradient Border */
+  position: relative;
+  border: 3.5px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image:
+    linear-gradient(#111, #111),
+    linear-gradient(135deg, #00D1FF, #A020F0, #FF4D4D, #FFB300);
 
-    <h2>Contact</h2>
-    <p>Email: Holyknights073@proton.me</p>
-</body>
-</html>
+  box-shadow: 0 12px 45px rgba(0,0,0,0.65);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.018);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.75);
+}
+
+/* LINKEDIN CARD SPECIAL */
+.profile-wrapper {
+  padding: 0 !important;
+  overflow: hidden;
+  height: auto;
+}
+
+/* Cover image INSIDE the card (LinkedIn style) */
+.cover-inside {
+  width: 100%;
+  height: 180px;
+  background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1500&q=90');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Profile image inside card */
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid #050505;
+  object-fit: cover;
+  margin-top: -70px;
+  margin-left: 28px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.7);
+}
+
+/* Project small cards */
+.project-box {
+  background: rgba(35,35,35,0.7);
+  padding: 18px;
+  margin-top: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: 0.25s;
+}
+.project-box:hover {
+  transform: scale(1.04);
+}
+
+/* Headings */
+.section-title {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 12px;
+}
+
+/* TEXT */
+.text {
+  color: #d6d6d6;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+</style>
+
+
+
+<!-- ================= PROFILE CARD (LINKEDIN STYLE) ================= -->
+<div class="card profile-wrapper fade-up">
+
+  <!-- Background inside card -->
+  <div class="cover-inside"></div>
+
+  <!-- Profile Image -->
+  <img src="https://i.postimg.cc/K80rXQ3g/sm.png" class="profile-photo">
+
+  <div style="padding: 20px 28px 32px 28px;">
+
+    <h1 style="color:white; font-size:32px; margin-bottom:4px; margin-top:8px;">
+      Siddhant Mujalgekar
+    </h1>
+
+    <p style="color:#bfbfbf; font-size:18px; margin-top:0;">
+      AI Enthusiast • Tech Lover • Future Innovator
+    </p>
+
+    <p class="text" style="max-width:700px;">
+      Building digital products with modern UI/UX, AI integration, and futuristic
+      user experience. Passionate about solving real problems with technology.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<!-- ================= ABOUT ================= -->
+<div class="card fade-up">
+  <h2 class="section-title">About Me</h2>
+  <p class="text">
+    I love crafting premium digital experiences. My focus is on AI, software,
+    and cutting-edge tech that shapes the future.
+  </p>
+</div>
+
+
+
+<!-- ================= PROJECTS ================= -->
+<div class="card fade-up">
+  <h2 class="section-title">Projects</h2>
+
+  <div class="project-box">
+    <h3 style="color:white; margin:0;">AI Chat Agent</h3>
+    <p class="text" style="margin-top:5px;">
+      A personalized AI productivity assistant. <br>
+      <b style="color:white;">Working on it…</b>
+    </p>
+  </div>
+
+  <div class="project-box">
+    <h3 style="color:white; margin:0;">Auto Portfolio Generator</h3>
+    <p class="text" style="margin-top:5px;">
+      A system that builds premium portfolios automatically. <br>
+      <b style="color:white;">Working on it…</b>
+    </p>
+  </div>
+
+</div>
+
+
+
+<!-- ================= INTERESTS ================= -->
+<div class="card fade-up">
+  <h2 class="section-title">Interests</h2>
+  <p class="text">
+    • Artificial Intelligence <br>
+    • UI/UX Design <br>
+    • App & Web Development <br>
+    • Cutting Edge Technologies
+  </p>
+</div>
+
+
+
+<!-- ================= CONTACT ================= -->
+<div class="card fade-up">
+  <h2 class="section-title">Contact</h2>
+  <p class="text" style="font-size:19px;">
+    📧 Email: <b style="color:white;">siddhantmujalgekar601@gmail.com</b>
+  </p>
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+<div style="text-align:center; padding:35px; color:#777; font-size:15px;">
+  © 2025 Siddhant Mujalgekar — Premium Portfolio V4
+</div>
+
+        </body>
