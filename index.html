@@ -24,10 +24,400 @@
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4443699098326954"
         crossorigin="anonymous"></script>
     </head>
+<div class="scroll-bar" id="scrollBar"></div>
 
+<script>
+window.addEventListener("scroll", () => {
+  let pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+  let scrollPercent = (window.scrollY / pageHeight) * 100;
+  document.getElementById("scrollBar").style.width = scrollPercent + "%";
+});
+</script>
+<div class="float-nav" onclick="toggleNav()">☰</div>
+
+<div class="nav-menu" id="menu">
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#interests">Interests</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<script>
+function toggleNav() {
+  let menu = document.getElementById('menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+<div id="topBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+<script>
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("topBtn");
+  if (window.scrollY > 350) btn.classList.add("show");
+  else btn.classList.remove("show");
+});
+</script>
+<script>
+document.querySelector(".cover-inside").addEventListener("mousemove", (e) => {
+  const rect = e.target.getBoundingClientRect();
+  e.target.style.setProperty("--x", (e.clientX - rect.left) + "px");
+  e.target.style.setProperty("--y", (e.clientY - rect.top) + "px");
+});
+</script>
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+});
+
+document.querySelectorAll('.card').forEach(card => obs.observe(card));
+</script>
+<script>
+document.querySelectorAll(".tilt").forEach(card => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+    card.style.setProperty("--rotateY", `${x/20}deg`);
+    card.style.setProperty("--rotateX", `${-y/20}deg`);
+  });
+});
+</script>
+<div class="particles" id="particles"></div>
+
+<script>
+for (let i = 0; i < 25; i++) {
+  let p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDelay = Math.random() * 8 + "s";
+  p.style.opacity = Math.random() * 0.8;
+  document.getElementById("particles").appendChild(p);
+}
+</script>
+<script>
+document.addEventListener("mousemove", (e) => {
+  const dot = document.createElement("div");
+  dot.className = "cursor-dot";
+  dot.style.left = e.clientX + "px";
+  dot.style.top = e.clientY + "px";
+  document.body.appendChild(dot);
+  setTimeout(() => dot.remove(), 600);
+});
+</script>
+<div id="loader">
+  <img src="https://i.postimg.cc/K80rXQ3g/sm.png">
+</div>
 <body style="margin:0; font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background:#050505;">
 
 <style>
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  animation: fadeOutLoader 1.3s ease forwards;
+  animation-delay: 1.4s;
+}
+
+#loader img {
+  width: 140px;
+  filter: drop-shadow(0 0 18px #00d1ff);
+  animation: loaderZoom 1.2s ease;
+}
+
+@keyframes loaderZoom {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeOutLoader {
+  to { opacity: 0; visibility: hidden; }
+}
+.cursor-dot {
+  position: fixed;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(#00d1ff, transparent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: fadeDot 0.7s forwards;
+}
+
+@keyframes fadeDot {
+  to { opacity: 0; transform: scale(2); }
+}
+.section-glow {
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #00d1ff, #a020f0, #ff4d4d, #ffb300) 1;
+  animation: glowShift 4s linear infinite;
+}
+
+@keyframes glowShift {
+  0% { filter: drop-shadow(0 0 3px #00d1ff); }
+  25% { filter: drop-shadow(0 0 3px #a020f0); }
+  50% { filter: drop-shadow(0 0 3px #ff4d4d); }
+  100% { filter: drop-shadow(0 0 3px #ffb300); }
+}
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #00d1ff, transparent);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: drift 12s infinite linear;
+}
+
+@keyframes drift {
+  from { transform: translateY(120vh) translateX(0); }
+  to   { transform: translateY(-20vh) translateX(30px); }
+}
+.tilt {
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+.tilt:hover {
+  transform: perspective(700px) rotateY(var(--rotateY)) rotateX(var(--rotateX));
+}
+.fade-scroll {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: 0.7s ease;
+}
+
+.fade-scroll.show {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255,255,255,0.3),
+      transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border: 3px solid transparent;
+  border-radius: 0;
+  animation: borderGlow 6s linear infinite;
+  box-sizing: border-box;
+}
+
+@keyframes borderGlow {
+  0% { box-shadow: inset 0 0 18px #00d1ff44; }
+  33% { box-shadow: inset 0 0 18px #a020f044; }
+  66% { box-shadow: inset 0 0 18px #ff4d4d44; }
+  100% { box-shadow: inset 0 0 18px #ffb30044; }
+}
+.cover-inside {
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-inside::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+              rgba(255,255,255,0.12), transparent 40%);
+  transition: background 0.15s;
+}
+.signature {
+  font-family: "Brush Script MT", cursive;
+  font-size: 28px;
+  color: #ffffffc7;
+  margin-top: 10px;
+  margin-left: 6px
+  opacity: 0.8;
+}
+.card:hover {
+  box-shadow: 0 0 25px rgba(0,209,255,0.35),
+              0 0 45px rgba(160,32,240,0.25),
+              0 0 70px rgba(255,77,77,0.15);
+}
+#topBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 24px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255,255,255,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.35s;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+}
+#topBtn.show {
+  opacity: 1;
+  transform: scale(1.07);
+}
+#topBtn:hover {
+  transform: scale(1.15) translateY(-4px);
+}
+.float-nav {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 62px;
+  height: 62px;
+  backdrop-filter: blur(16px);
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(20,20,20,0.55);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.float-nav:hover {
+  transform: scale(1.1) translateY(-4px);
+}
+.nav-menu {
+  position: fixed;
+  bottom: 100px;
+  right: 26px;
+  background: rgba(25,25,25,0.75);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: none;
+}
+.nav-menu a {
+  color: white;
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  font-size: 17px;
+}
+.nav-menu a:hover {
+  color: #00d1ff;
+}
+.scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00d1ff, #a020f0, #ff4d4d, #ffb300);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.15s linear;
+}
+.typing {
+  width: 0ch;
+  color: #bfbfbf;
+  font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(40) forwards, blink 0.7s infinite;
+}
+@keyframes typing {
+  from { width: 0ch; }
+  to { width: 38ch; }
+}
+@keyframes blink {
+  50% { border-right: 2px solid white; }
+  100% { border-right: 2px solid transparent; }
+}
+/* Avatar Glow Decoration */
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid #050505;
+  object-fit: cover;
+  margin-top: -70px;
+  margin-left: 28px;
+  box-shadow: 
+      0 0 20px rgba(0, 208, 255, 0.6),
+      0 0 40px rgba(160, 32, 240, 0.4),
+      0 0 60px rgba(255, 77, 77, 0.35);
+  animation: floatPic 5s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes floatPic {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Shine overlay on profile */
+.profile-photo::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0)
+  );
+  pointer-events: none;
+}
+
+/* Nameplate */
+.nameplate {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #00d1ff, #a020f0, #ff4d4d, #ffb300);
+  color: black;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.45);
+}
 
 /* GLOBAL */
 * { scroll-behavior: smooth; }
@@ -124,9 +514,9 @@
 
 
 
-<!-- ================= PROFILE CARD (LINKEDIN STYLE) ================= -->
-<div class="card profile-wrapper fade-up">
 
+<!-- ================= PROFILE CARD (LINKEDIN STYLE) ================= -->
+<div class="card profile-wrapper fade-up tilt">
   <!-- Background inside card -->
   <div class="cover-inside"></div>
 
@@ -136,10 +526,14 @@
   <div style="padding: 20px 28px 32px 28px;">
 
     <h1 style="color:white; font-size:32px; margin-bottom:4px; margin-top:8px;">
-      Siddhant Mujalgekar
-    </h1>
+  Siddhant Mujalgekar
+</h1>
 
-    <p style="color:#bfbfbf; font-size:18px; margin-top:0;">
+<div class="nameplate">
+  Official Profile • Premium Verified
+</div>
+<div class="signature">— Siddhant</div>
+    <p class="typing" style="color:#bfbfbf; font-size:18px; margin-top:0;">
       AI Enthusiast • Tech Lover • Future Innovator
     </p>
 
@@ -217,4 +611,4 @@
   © 2025 Siddhant Mujalgekar — Premium Portfolio V4
 </div>
 
-        </body>
+</body>
